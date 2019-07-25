@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lxs.myarticle.dao.ArticleMapper" >
+  <resultMap id="BaseResultMap" type="com.lxs.myarticle.pojo.Article" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="TIMESTAMP" />
+    <result column="verify" property="verify" jdbcType="INTEGER" />
+    <result column="publish" property="publish" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from a_article
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lxs.myarticle.pojo.Article" >
+    insert into a_article (id, author, summary, 
+      date, verify, publish, 
+      status, content)
+    values (#{id,jdbcType=INTEGER}, #{author,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
+      #{date,jdbcType=TIMESTAMP}, #{verify,jdbcType=INTEGER}, #{publish,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.lxs.myarticle.pojo.Article" >
+    update a_article
+    set author = #{author,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      date = #{date,jdbcType=TIMESTAMP},
+      verify = #{verify,jdbcType=INTEGER},
+      publish = #{publish,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, author, summary, date, verify, publish, status, content
+    from a_article
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, author, summary, date, verify, publish, status, content
+    from a_article
+  </select>
+
+  <select id="selectCount" resultType="int">
+     SELECT COUNT(*) FROM a_article
+  </select>
+
+  <!--分页查找-->
+  <select id="findByPage" resultMap="BaseResultMap" parameterType="Map">
+    SELECT * FROM a_article
+    <if test="start != null and size != null">
+      limit #{start}, #{size}
+    </if>
+
+  </select>
+
+  <!--多条件分页查询-->
+  <select id="findBycomMapPage" resultMap="BaseResultMap" parameterType="Map">
+    SELECT * FROM a_article
+    <if test="verify != null and verify != ''" >
+      AND verify = #{verify}
+    </if>
+    <if test="publish != null and publish != ''">
+      AND publish = #{publish}
+    </if>
+    <if test="status != status and status != ''">
+      AND status = #{status}
+    </if>
+    <if test="start != null and size != null">
+      limit #{start}, #{size}
+    </if>
+
+  </select>
+
+
+</mapper>

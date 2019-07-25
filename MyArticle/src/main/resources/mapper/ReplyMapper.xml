@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lxs.myarticle.dao.ReplyMapper" >
+  <resultMap id="BaseResultMap" type="com.lxs.myarticle.pojo.Reply" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="article_id" property="articleId" jdbcType="INTEGER" />
+    <result column="reply_name" property="replyName" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="TIMESTAMP" />
+    <result column="article_name" property="articleName" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from a_reply
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lxs.myarticle.pojo.Reply" >
+    insert into a_reply (id, article_id, reply_name, 
+      date, article_name, content
+      )
+    values (#{id,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, #{replyName,jdbcType=VARCHAR}, 
+      #{date,jdbcType=TIMESTAMP}, #{articleName,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.lxs.myarticle.pojo.Reply" >
+    update a_reply
+    set article_id = #{articleId,jdbcType=INTEGER},
+      reply_name = #{replyName,jdbcType=VARCHAR},
+      date = #{date,jdbcType=TIMESTAMP},
+      article_name = #{articleName,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, article_id, reply_name, date, article_name, content
+    from a_reply
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, article_id, reply_name, date, article_name, content
+    from a_reply
+  </select>
+</mapper>
