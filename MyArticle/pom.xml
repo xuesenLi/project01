@@ -125,7 +125,7 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.11</version>
+      <version>8.0.28</version>
     </dependency>
 
     <!--导入我们的Servlet的API -->
@@ -234,7 +234,7 @@
             <dependency>
               <groupId>mysql</groupId>
               <artifactId>mysql-connector-java</artifactId>
-              <version>8.0.11</version>
+              <version>8.0.28</version>
             </dependency>
 
           </dependencies>
